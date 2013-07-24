@@ -172,6 +172,10 @@ class Measure {
 
 
 class Note {
+	public static final int WAVE_AMP = 5000;							//Amplitude of default wave
+	public static final double TWO_PI = 2 * PI;
+	public static final double CONT_FACTOR = .95;						//Ratio of continuous note to non-continuous note
+	public static final int SECONDS = 60;
 	double frequency;													//frequency of note
 	double length;														//length of a note in seconds
 	boolean cont;														//Whether note is continuous
@@ -183,7 +187,7 @@ class Note {
 
 	public Note(double freq, double beatlength, double beatpermin, boolean continuous, double samplerate) {			//Set parameter values
 		frequency = freq;
-		length = (beatlength * (60/beatpermin));
+		length = (beatlength * (SECONDS/beatpermin));
 		cont = continuous;
 		sampleRate = samplerate;
 		increment = 1/samplerate;
@@ -196,13 +200,13 @@ class Note {
 		}
 		if (cont) {													//If continuous, calculate PCM values and add to samplevalue array
 			while ((t<length) && (count<sampleValues.length)) {
-				sampleValues[count] = 5000 * 1 * sin(2.0 * PI * frequency * t);
+				sampleValues[count] = WAVE_AMP * 1 * sin(TWO_PI * frequency * t);
 				t += increment;
 				count+=1;
 			}
 		} else {													//If not continuous, do same except leave last 5% as 0
-			while ((t < length * .95) && (count < (int) (.95 * sampleValues.length))) {
-				sampleValues[count] = (5000 * 1 * sin(2.0 * PI * frequency * t));
+			while ((t < length * CONT_FACTOR) && (count < (int) (CONT_FACTOR * sampleValues.length))) {
+				sampleValues[count] = (WAVE_AMP * 1 * sin(TWO_PI * frequency * t));
 				t += increment;
 				count += 1;
 			}
