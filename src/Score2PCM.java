@@ -2,20 +2,28 @@ import java.io.*;
 import java.util.*;
 import static java.lang.Math.*;
 
-public class MusicGeneratorAutomated {
-	public static void main(String[] args) {
-		try {
-			String input;													//User input
-			double sampleRate;												//Holds sample rate
-			Scanner in = new Scanner(System.in);
+public class Score2PCM {
 
-			System.out.print("Enter the name of the input file: ");								//Get input file
-			FileReader inFile = new FileReader(in.next());
-			BufferedReader reader = new BufferedReader(inFile);
-			System.out.print("Enter the name of the output file: ");							//Get name for output file
-			FileWriter outFile = new FileWriter(in.next());
-			PrintWriter out = new PrintWriter(outFile);
-			while(true) {
+	double[] PCM;
+	double sampleRate;
+	String input;
+	String output;
+	
+	public static void main(String[] args) {
+	}
+	
+	void getFiles() {
+		Scanner in = new Scanner(System.in);
+		System.out.println("Enter the name of the input file: ");
+		input = in.next();
+		
+		System.out.println("Enter the name of the output file: ");
+		output = out.next();
+	}
+	
+	void getSampleRate() {
+		Scanner in = new Scanner(System.in);
+		while(true) {
 				try {
 					System.out.print("Enter the desired sampling rate: ");						//Get sample rate
 					sampleRate = in.nextDouble();
@@ -24,10 +32,21 @@ public class MusicGeneratorAutomated {
 					System.out.print("Sorry, try again: ");
 				}
 			}
-			Music composition = new Music(reader, out, sampleRate);								//Create new music object
-			composition.compose();
-		} catch (IOException e) {
-			System.out.println("Error in writing to file");
+		}
+	}
+	
+	void generatePCM() {
+		try {
+			FileReader inFile = new FileReader(input);
+			BufferedReader reader = new BufferedReader(inFile);
+			double beatPerMin;
+			int beatPerMeasure;
+			int measureNum = 0;
+			
+			String line = reader.readLine();
+			String[] data = line.split(" ");
+			beatPerMin = Double.parseDouble(data[0]);
+			beatPerMeasure = Integer.parseInt(data[1]);
 		}
 	}
 }
