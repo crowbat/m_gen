@@ -110,7 +110,7 @@ class Measure {
 		notes.put("C",32.7032);
 		notes.put("Cs",34.6478);
 		notes.put("Df",34.6478);
-		notes.put("D",	36.7081);
+		notes.put("D",36.7081);
 		notes.put("Ds",38.8909);
 		notes.put("Ef",38.8909);
 		notes.put("E",41.2034);
@@ -199,12 +199,12 @@ class Note {
 			sampleValues[i] = 0.0;
 		}
 		if (cont) {													//If continuous, calculate PCM values and add to samplevalue array
-			while ((t<length) && (count<sampleValues.length)) {
+			while ((t<length) && (count < sampleValues.length)) {
 				sampleValues[count] = WAVE_AMP * 1 * sin(TWO_PI * frequency * t);
 				t += increment;
 				count+=1;
 			}
-		} else {													//If not continuous, do same except leave last 5% as 0
+		} else {													//If not continuous, do same except leave last bit as 0
 			while ((t < length * CONT_FACTOR) && (count < (int) (CONT_FACTOR * sampleValues.length))) {
 				sampleValues[count] = (WAVE_AMP * 1 * sin(TWO_PI * frequency * t));
 				t += increment;

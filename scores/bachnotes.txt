@@ -1,0 +1,269 @@
+88 3
+Start
+D 5 1 1 N
+G 4 2 .5 Y
+A 4 2.5 .5 Y
+B 4 3 .5 Y
+C 5 3.5 .5 Y
+G 3 1 2 Y
+B 3 1 2 Y
+D 4 1 2 Y
+A 3 3 1 Y
+End
+Start
+D 5 1 1 N
+G 4 2 1 N
+G 4 3 1 N
+B 3 1 3 Y
+End
+Start
+E 5 1 1 N
+C 5 2 .5 Y
+D 5 2.5 .5 Y
+E 5 3 .5 Y
+Fs 5 3.5 .5 Y
+C 4 1 3 Y
+End
+Start
+G 5 1 1 N
+G 4 2 1 N
+G 4 3 1 N
+B 3 1 3 Y
+End
+Start
+C 5 1 1 N
+D 5 2 .5 Y
+C 5 2.5 .5 Y
+B 4 3 .5 Y
+A 4 3.5 .5 Y
+A 3 1 3 Y
+End
+Start
+B 4 1 1 N
+C 5 2 .5 Y
+B 4 2.5 .5 Y
+A 4 3 .5 Y
+G 4 3.5 .5 Y
+G 3 1 3 Y
+End
+Start
+Fs 4 1 1 N
+G 4 2 .5 Y
+A 4 2.5 .5 Y
+B 4 3 .5 Y
+G 4 3.5 .5 Y
+D 4 1 1 Y
+B 3 2 1 Y
+G 3 3 1 Y
+End
+Start
+B 4 1 1 Y
+A 4 2 2 Y
+D 4 1 1 N
+D 3 2 .5 Y
+C 4 2.5 .5 Y
+B 3 3 .5 Y
+A 3 3.5 .5 Y
+End
+Start
+D 5 1 1 N
+G 4 2 .5 Y
+A 4 2.5 .5 Y
+B 4 3 .5 Y
+C 5 3.5 .5 Y
+B 3 1 2 Y
+A 3 3 1 Y
+End
+Start
+D 5 1 1 N
+G 4 2 1 N
+G 4 3 1 N
+G 3 1 1 N
+B 3 2 1 N
+G 3 3 1 N
+End
+Start
+E 5 1 1 N
+C 5 2 .5 Y
+D 5 2.5 .5 Y
+E 5 3 .5 Y
+Fs 5 3.4 .5 Y
+C 4 1 3 Y
+End
+Start
+G 5 1 1 N
+G 4 2 1 N
+G 4 3 1 N
+B 3 1 1 Y
+C 4 2 .5 Y
+B 3 2.5 .5 Y
+A 3 3 .5 Y
+G 3 3.5 .5 Y
+End
+Start
+C 5 1 1 N
+D 5 2 .5 Y
+C 5 2.5 .5 Y
+B 4 3 .5 Y
+A 4 3.5 .5 Y
+A 3 1 2 Y
+Fs 3 3 1 Y
+End
+Start
+B 4 1 1 N
+C 5 2 .5 Y
+B 4 2.5 .5 Y
+A 4 3 .5 Y
+G 4 3.5 .5 Y
+G 3 1 2 Y
+B 3 2 1 Y
+End
+Start
+A 4 1 1 N
+B 4 2 .5 Y
+A 4 2.5 .5 Y
+G 4 3 .5 Y
+Fs 4 3.5 .5 Y
+C 4 1 1 N
+D 4 2 1 N
+D 3 3 1 N
+End
+Start
+G 4 1 3 Y
+G 3 1 2 Y
+G 2 2 1 Y
+End
+Start
+B 5 1 1 N
+G 5 2 .5 Y
+A 5 2.5 .5 Y
+B 5 3 .5 Y
+G 5 3.5 .5 Y
+G 3 1 3 Y
+End
+Start
+A 5 1 1 N
+D 5 2 .5 Y
+E 5 2.5 .5 Y
+Fs 5 3 .5 Y
+D 5 3.5 .5 Y
+Fs 3 1 3 Y
+End
+Start
+G 5 1 1 N
+E 5 2 .5 Y
+Fs 5 2.5 .5 Y
+G 5 3 .5 Y
+D 5 3.5 .5 Y
+E 3 1 1 N
+G 3 2 1 N
+E 3 3 1 N
+End
+Start
+Cs 5 1 1 N
+B 4 2 .5 Y
+Cs 5 2.5 .5 Y
+A 4 3 1 N
+A 3 1 2 Y
+A 2 3 1 N
+End
+Start
+A 4 1 .5 Y
+B 4 1.5 .5 Y
+Cs 5 2 .5 Y
+D 5 2.5 .5 Y
+E 5 3 .5 Y
+Fs 5 3.5 .5 Y
+A 3 1 3 Y
+End
+Start
+G 5 1 1 N
+Fs 5 2 1 N
+E 5 3 1 N
+B 3 1 1 N
+D 4 2 1 N
+Cs 4 3 1 N
+End
+Start
+D 5 1 1 N
+A 4 2 1 N
+Cs 5 3 1 N
+D 4 1 1 N
+Fs 3 2 1 N
+A 3 3 1 N
+End
+Start
+D 5 1 3 Y
+D 4 1 1 Y
+D 3 2 1 Y
+C 4 3 1 Y
+End
+Start
+D 5 1 1 N
+G 4 2 .5 Y
+Fs 4 2.5 .5 Y
+G 4 3 1 N
+B 3 1 2 Y
+D 4 2 2 Y
+B 3 3 1 Y
+End
+Start
+E 5 1 1 N
+G 4 2 .5 Y
+Fs 4 2.5 .5 Y
+G 4 3 1 N
+C 4 1 2 Y
+E 4 2 2 Y
+C 4 3 1 Y
+End
+Start
+D 5 1 1 N
+C 5 2 1 N
+B 4 3 1 N
+B 3 1 1 N
+A 3 2 1 N
+G 3 3 1 N
+End
+Start
+A 4 1 .5 Y
+G 4 1.5 .5 Y
+Fs 4 2 .5 Y
+G 4 2.5 .5 Y
+A 4 3 1 N
+D 4 1 2 Y
+End
+Start
+D 4 1 .5 Y
+E 4 1.5 .5 Y
+Fs 4 2 .5 Y
+G 4 2.5 .5 Y
+A 4 3 .5 Y
+B 4 3.5 .5 Y
+D 3 1 3 Y
+Fs 3 3 1 Y
+End
+Start
+C 5 1 1 N
+B 4 2 1 N
+A 4 3 1 N
+E 3 1 1 N
+G 3 2 1 N
+Fs 3 3 1 N
+End
+Start
+B 4 1 .5 Y
+D 5 1.5 .5 Y
+G 4 2 1 N
+Fs 4 3 1 N
+G 3 1 1 Y
+B 2 2 1 N
+Fs 3 3 1 N
+End
+Start
+B 3 1 3 Y
+D 4 1 3 Y
+G 4 1 3 Y
+G 3 1 1 N
+D 3 2 1 N
+G 2 3 1 N
+End
