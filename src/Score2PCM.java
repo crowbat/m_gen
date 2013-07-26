@@ -2,6 +2,7 @@ import java.io.FileReader;
 import java.io.BufferedReader;
 import java.io.FileWriter;
 import java.io.PrintWriter;
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -58,13 +59,16 @@ public class Score2PCM {
 	}
 	
 	void generatePCM() {
+		double beatPerMin;
+		double[] measurePCM = new double[0];
+		int beatPerMeasure;
+		int measureNum = 0;
+		int lineNum = 0;
+		int noteNum = 0;
+		
 		try {
 			FileReader inFile = new FileReader(input);
 			BufferedReader reader = new BufferedReader(inFile);
-			double beatPerMin;
-			double[] measurePCM = new double[0];
-			int beatPerMeasure;
-			int measureNum = 0;
 			
 			String line = reader.readLine();
 			String[] beatInfo = line.split(" ");
@@ -72,30 +76,36 @@ public class Score2PCM {
 			beatPerMeasure = Integer.parseInt(beatInfo[1]);
 			
 			while ((line = reader.readLine()) != null) {
+				lineNum += 1;
 				if (line.equals("Start")) {
 					measureNum += 1;
+					System.out.println("Measure " + measureNum);
 					measurePCM = new double[(int) (sampleRate * beatPerMeasure * 60 / beatPerMin)];
 				} else if (line.equals("End")) {
 					PCM.add(measurePCM);
 				} else {
-					String[] noteInfo = line.split(" ");
-					double[] notePCM = Note.generatePCM(noteInfo[0], Integer.parseInt(noteInfo[1]),
-										Double.parseDouble(noteInfo[3]) * 60 / beatPerMin, sampleRate);
-					if (noteInfo[4].equals("N")) {
-						for (int i = (int) (sampleRate * (Double.parseDouble(noteInfo[2]) - 1) * 60 / beatPerMin), k = 0;
-						i < measurePCM.length && k < notePCM.length * .95; i++, k++) {
-							measurePCM[i] += notePCM[k];
-						}
-					 } else {
-						for (int i = (int) (sampleRate * (Double.parseDouble(noteInfo[2]) - 1) * 60 / beatPerMin), k = 0;
-						i < measurePCM.length && k < notePCM.length; i++, k++) {
-							measurePCM[i] += notePCM[k];
+					noteNum += 1;
+					String[] noteInfo = line.split("[\\s\\t]+");
+					if (!noteInfo[0].equals("//")) {
+						double[] notePCM = Note.generatePCM(noteInfo[0], Integer.parseInt(noteInfo[1]),
+											Double.parseDouble(noteInfo[3]) * 60 / beatPerMin, sampleRate);
+						if (noteInfo.length == 5 && noteInfo[4].equals("Y")) {
+							for (int i = (int) (sampleRate * (Double.parseDouble(noteInfo[2]) - 1) * 60 / beatPerMin), k = 0;
+							i < measurePCM.length && k < notePCM.length; i++, k++) {
+								measurePCM[i] += notePCM[k];
+							}
+						 } else {
+							for (int i = (int) (sampleRate * (Double.parseDouble(noteInfo[2]) - 1) * 60 / beatPerMin), k = 0;
+							i < measurePCM.length && k < notePCM.length * .95; i++, k++) {
+								measurePCM[i] += notePCM[k];
+							}
 						}
 					}
 				}
 			}
-		} catch (Exception e) {
-			System.err.println("Error");
+			System.out.println("Read " + noteNum + " notes");
+		} catch (IOException e) {
+			System.err.println("Error in Score2PCM: measure number " + measureNum + ", line number " + lineNum);
 		}
 	}
 	
@@ -111,7 +121,7 @@ public class Score2PCM {
 			}
 			out.close();
 		} catch (Exception e) {
-			System.err.println("Error");
+			System.err.println("Error in Score2PCM output");
 		}
 	}
 	
