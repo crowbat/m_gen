@@ -21,16 +21,16 @@ public class PCM2Wav {
 	
 	public static void main(String[] args) throws FileNotFoundException {
 		PCM2Wav p = new PCM2Wav();
-		p.getInput();
-		p.getSampleRate();
-		p.getBitsPerSample();
-		p.getDataLength();
-		p.getHeader();
+		p.setInput();
+		p.setSampleRate();
+		p.setBitsPerSample();
+		p.modifyDataLength();
+		p.modifyHeader();
 		p.writeHeader();
 		p.writeWav();
 	}
 	
-	void getInput() throws FileNotFoundException {
+	void setInput() throws FileNotFoundException {
 		Scanner in = new Scanner(System.in);
 		System.out.print("Enter the input file: ");
 		input = in.next();
@@ -38,7 +38,7 @@ public class PCM2Wav {
 		input = "../PCM/" + input;
 		outFile = new FileOutputStream(output);
 		System.out.println("Input PCM file is " + input);
-		System.out.println("Output PCM file is " + output);
+		System.out.println("Output wav file is " + output);
 	}
 	
 	void setInput(String in) throws FileNotFoundException {
@@ -46,10 +46,10 @@ public class PCM2Wav {
 		output = "../wav/" + input.substring(7, input.length() - 7) + "wav.wav";
 		outFile = new FileOutputStream(output);
 		System.out.println("Input PCM file is " + input);
-		System.out.println("Output PCM file is " + output);		
+		System.out.println("Output wav file is " + output);		
 	}
 	
-	void getOutput() throws FileNotFoundException {
+	void setOutput() throws FileNotFoundException {
 		Scanner in = new Scanner(System.in);
 		System.out.print("Enter the output file: ");
 		output = in.next();
@@ -60,7 +60,7 @@ public class PCM2Wav {
 		output = out;
 	}
 	
-	void getSampleRate() {
+	void setSampleRate() {
 		Scanner in = new Scanner(System.in);
 		System.out.print("Enter the sample rate: ");
 		sampleRate = Double.parseDouble(in.next());
@@ -70,7 +70,7 @@ public class PCM2Wav {
 		sampleRate = sampRate;
 	}
 	
-	void getBitsPerSample() {
+	void setBitsPerSample() {
 		Scanner in = new Scanner(System.in);
 		System.out.print("Enter the number of bits per sample (8 or 16): ");
 		bitsPerSample = Integer.parseInt(in.next());
@@ -80,7 +80,7 @@ public class PCM2Wav {
 		bitsPerSample = bps;
 	}
 	
-	void getDataLength() throws FileNotFoundException {
+	void modifyDataLength() throws FileNotFoundException {
 		Scanner readFileLength = new Scanner(new File(input));						//Create scanner to scan through file and count how many integers
 		while(readFileLength.hasNextInt()) {										//Loop until end of file to get how many integers are in the file
 			int temp = readFileLength.nextInt();
@@ -88,7 +88,7 @@ public class PCM2Wav {
 		}
 	}
 	
-	void getHeader() {
+	void modifyHeader() {
 		String chunkID = "52494646";												//This forms the "RIFF" part of the header
 		String chunkSize;															//This represents the size of the subchunks of the wav file (not including data)
 		String format = "57415645";													//This forms the "WAVE" part of the header

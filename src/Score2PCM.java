@@ -16,14 +16,14 @@ public class Score2PCM {
 	
 	public static void main(String[] args) {
 		Score2PCM s = new Score2PCM();
-		s.getFiles();
-		s.getSampleRate();
+		s.setInput();
+		s.setSampleRate();
 		s.generatePCM();
 		System.out.println("Generated PCM numbers");
 		s.output();
 	}
 	
-	void getFiles() {
+	void setInput() {
 		Scanner in = new Scanner(System.in);
 		System.out.print("Enter the name of the input file: ");
 		input = in.next();
@@ -33,7 +33,14 @@ public class Score2PCM {
 		System.out.println("Output PCM file is " + output);
 	}
 	
-	void getSampleRate() {
+	void setInput(String in) {
+		input = in;
+		output = "../PCM/" + input.substring(10, input.length() - 9) + "PCM.txt";
+		System.out.println("Input score file is " + input);
+		System.out.println("Output PCM file is " + output);
+	}
+	
+	void setSampleRate() {
 		Scanner in = new Scanner(System.in);
 		while(true) {
 			try {
@@ -44,6 +51,10 @@ public class Score2PCM {
 				System.out.print("Sorry, try again: ");
 			}
 		}
+	}
+	
+	double getSampleRate() {
+		return sampleRate;
 	}
 	
 	void generatePCM() {
@@ -104,7 +115,7 @@ public class Score2PCM {
 		}
 	}
 	
-	String getOutputFile() {
+	String getOutputPCMFile() {
 		return output;
 	}
 }
