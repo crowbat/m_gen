@@ -25,11 +25,12 @@ public class Score2PCM {
 	
 	void getFiles() {
 		Scanner in = new Scanner(System.in);
-		System.out.println("Enter the name of the input file: ");
+		System.out.print("Enter the name of the input file: ");
 		input = in.next();
-		
-		System.out.println("Enter the name of the output file: ");
-		output = in.next();
+		output = "../PCM/" + input.substring(0, input.length() - 9) + "PCM.txt";
+		input = "../scores/" + input;
+		System.out.println("Input score file is " + input);
+		System.out.println("Output PCM file is " + output);
 	}
 	
 	void getSampleRate() {
@@ -54,7 +55,6 @@ public class Score2PCM {
 			int beatPerMeasure;
 			int measureNum = 0;
 			
-			System.out.println("I'm here");
 			String line = reader.readLine();
 			String[] beatInfo = line.split(" ");
 			beatPerMin = Double.parseDouble(beatInfo[0]);
@@ -104,7 +104,7 @@ public class Score2PCM {
 		}
 	}
 	
-	void getOutputFile() {
+	String getOutputFile() {
 		return output;
 	}
 }

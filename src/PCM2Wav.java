@@ -22,7 +22,6 @@ public class PCM2Wav {
 	public static void main(String[] args) throws FileNotFoundException {
 		PCM2Wav p = new PCM2Wav();
 		p.getInput();
-		p.getOutput();
 		p.getSampleRate();
 		p.getBitsPerSample();
 		p.getDataLength();
@@ -31,14 +30,23 @@ public class PCM2Wav {
 		p.writeWav();
 	}
 	
-	void getInput() {
+	void getInput() throws FileNotFoundException {
 		Scanner in = new Scanner(System.in);
 		System.out.print("Enter the input file: ");
 		input = in.next();
+		output = "../wav/" + input.substring(0, input.length() - 7) + "wav.wav";
+		input = "../PCM/" + input;
+		outFile = new FileOutputStream(output);
+		System.out.println("Input PCM file is " + input);
+		System.out.println("Output PCM file is " + output);
 	}
 	
-	void setInput(String in) {
+	void setInput(String in) throws FileNotFoundException {
 		input = in;
+		output = "../wav/" + input.substring(7, input.length() - 7) + "wav.wav";
+		outFile = new FileOutputStream(output);
+		System.out.println("Input PCM file is " + input);
+		System.out.println("Output PCM file is " + output);		
 	}
 	
 	void getOutput() throws FileNotFoundException {
