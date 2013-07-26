@@ -64,7 +64,6 @@ public class Score2PCM {
 				if (line.equals("Start")) {
 					measureNum += 1;
 					measurePCM = new double[(int) (sampleRate * beatPerMeasure * 60 / beatPerMin)];
-					System.out.println("There are " + measurePCM.length + "samples in this measure");
 				} else if (line.equals("End")) {
 					PCM.add(measurePCM);
 				} else {
@@ -103,6 +102,10 @@ public class Score2PCM {
 		} catch (Exception e) {
 			System.err.println("Error");
 		}
+	}
+	
+	void getOutputFile() {
+		return output;
 	}
 }
 
