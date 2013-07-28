@@ -9,7 +9,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 
-public class M_Gen extends JFrame {
+public class M_Gen extends JFrame {										// Comment
 	
 	public M_Gen() {
 		initUI();
