@@ -46,9 +46,9 @@ public class M_Gen extends JFrame {
 		menubar.add(menuEdit);
 		menubar.add(menuView);
 		
-		setJMenuBar(menubar);												// Add menu bar to panel
+		setJMenuBar(menubar);											// Add menu bar to panel
 		
-		setTitle("Music Generator");
+		setTitle("Music Generator");									// Define JFrame properties
 		setSize(600, 500);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);		
