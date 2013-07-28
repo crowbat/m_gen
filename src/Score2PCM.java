@@ -10,10 +10,10 @@ import static java.lang.Math.*;
 
 public class Score2PCM {
 
-	ArrayList<double[]> PCM = new ArrayList<double[]>();
-	double sampleRate;
-	String input;
-	String output;
+	ArrayList<double[]> PCM = new ArrayList<double[]>();							// Holds arrays of PCM integers from each measure of the score
+	double sampleRate;																// Sample rate of the data
+	String input;																	// Input score file
+	String output;																	// Output PCM file
 	
 	public static void main(String[] args) {
 		runScore2PCM();
@@ -49,7 +49,7 @@ public class Score2PCM {
 		Scanner in = new Scanner(System.in);
 		while(true) {
 			try {
-				System.out.print("Enter the desired sampling rate: ");						// Get sample rate
+				System.out.print("Enter the desired sampling rate: ");
 				sampleRate = in.nextDouble();
 				break;
 			} catch (Exception e) {
@@ -81,16 +81,16 @@ public class Score2PCM {
 			
 			while ((line = reader.readLine()) != null) {
 				lineNum += 1;
-				if (line.equals("Start")) {
+				if (line.equals("Start")) {																// Signifies start of measure
 					measureNum += 1;
 					System.out.println("Measure " + measureNum);
-					measurePCM = new double[(int) (sampleRate * beatPerMeasure * 60 / beatPerMin)];
-				} else if (line.equals("End")) {
+					measurePCM = new double[(int) (sampleRate * beatPerMeasure * 60 / beatPerMin)];		// Calculates number of data points for the measure
+				} else if (line.equals("End")) {														// Signifies end of measure
 					PCM.add(measurePCM);
 				} else {
 					noteNum += 1;
 					String[] noteInfo = line.split("[\\s\\t]+");
-					if (!noteInfo[0].equals("//")) {
+					if (!noteInfo[0].equals("//")) {													// If line is not a comment
 						double[] notePCM = Note.generatePCM(noteInfo[0], Integer.parseInt(noteInfo[1]),
 											Double.parseDouble(noteInfo[3]) * 60 / beatPerMin, sampleRate);
 						if (noteInfo.length == 5 && noteInfo[4].equals("Y")) {
@@ -113,7 +113,7 @@ public class Score2PCM {
 		}
 	}
 	
-	void output() {
+	void output() {																					// Writes PCM data to the output file
 		try {
 			FileWriter outFile = new FileWriter(output);
 			PrintWriter out = new PrintWriter(outFile);
@@ -135,8 +135,8 @@ public class Score2PCM {
 }
 
 
-class Note {
-	static HashMap<String, Double> noteFrequencies = new HashMap<String, Double>();
+class Note {																						// Class that generates PCM integers for one note
+	static HashMap<String, Double> noteFrequencies = new HashMap<String, Double>();					// HashMap that holds frequencies for each note
 	static {
 		noteFrequencies.put("C",32.7032);
 		noteFrequencies.put("Cs",34.6478);
@@ -156,14 +156,14 @@ class Note {
 		noteFrequencies.put("Bf",58.2705);
 		noteFrequencies.put("B",61.7354);
 	}
-	public static final int WAVE_AMP = 5000;							// Amplitude of default wave
+	public static final int WAVE_AMP = 5000;														// Amplitude of default wave
 	public static final double TWO_PI = 2 * PI;
 	
 	static double[] generatePCM(String noteName, int octave, double noteDuration, double sampleRate) {
-		double[] notePCM = new double[(int) (noteDuration * sampleRate)];
-		double increment = 1.0 / sampleRate;
-		double octaveMultiplier;
-		double frequency;
+		double[] notePCM = new double[(int) (noteDuration * sampleRate)];							// Array that will hold the PCM data of the note
+		double increment = 1.0 / sampleRate;														// Time increment between each PCM integer
+		double octaveMultiplier;																	// Number to multiply frequency by to account for octave
+		double frequency;																			// Frequency of the note
 		
 		if (octave == 0) {
 			octaveMultiplier = 0.5;
