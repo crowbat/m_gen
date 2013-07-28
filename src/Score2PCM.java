@@ -16,6 +16,10 @@ public class Score2PCM {
 	String output;
 	
 	public static void main(String[] args) {
+		runScore2PCM();
+	}
+	
+	static void runScore2PCM() {
 		Score2PCM s = new Score2PCM();
 		s.setInput();
 		s.setSampleRate();

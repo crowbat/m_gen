@@ -7,7 +7,11 @@ public class Score2Wav {
 	static String outputPCMFile;
 	static String outputWavFile;
 	
-	public static void main(String[] args) throws FileNotFoundException {
+	public static void main(String[] args) {
+		runScore2Wav();
+	}
+	
+	static void runScore2Wav() {
 		getInput();
 		Score2PCM s = new Score2PCM();
 		PCM2Wav p = new PCM2Wav();
@@ -22,7 +26,7 @@ public class Score2Wav {
 		p.modifyHeader();
 		p.writeHeader();
 		p.writeWav();
-	}
+	}		
 	
 	static void getInput() {
 		Scanner in = new Scanner(System.in);

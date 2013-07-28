@@ -11,15 +11,19 @@ import java.util.Scanner;
 
 public class PCM2Wav {
 
-	String input;
-	String output;
-	String header;
-	FileOutputStream outFile;
-	double sampleRate;
-	int bitsPerSample;
-	int dataLength;
+	String input;												// Input PCM file
+	String output;												// Output Wav file
+	String header;												// Header for the wav file
+	FileOutputStream outFile;									// Writes to output Wav file
+	double sampleRate;											// Sample rate of the wav file
+	int bitsPerSample;											// Bits per sample of the wav file
+	int dataLength;												// Counts number of integers in the PCM data
 	
-	public static void main(String[] args) throws FileNotFoundException {
+	public static void main(String[] args) {
+		runPCM2Wav();
+	}
+	
+	static void runPCM2Wav() {
 		PCM2Wav p = new PCM2Wav();
 		p.setInput();
 		p.setSampleRate();
@@ -30,30 +34,42 @@ public class PCM2Wav {
 		p.writeWav();
 	}
 	
-	void setInput() throws FileNotFoundException {
-		Scanner in = new Scanner(System.in);
-		System.out.print("Enter the input file: ");
-		input = in.next();
-		output = "../wav/" + input.substring(0, input.length() - 7) + "wav.wav";
-		input = "../PCM/" + input;
-		outFile = new FileOutputStream(output);
-		System.out.println("Input PCM file is " + input);
-		System.out.println("Output wav file is " + output);
+	void setInput() {
+		try {
+			Scanner in = new Scanner(System.in);
+			System.out.print("Enter the input file: ");
+			input = in.next();
+			output = "../wav/" + input.substring(0, input.length() - 7) + "wav.wav";
+			input = "../PCM/" + input;
+			outFile = new FileOutputStream(output);
+			System.out.println("Input PCM file is " + input);
+			System.out.println("Output wav file is " + output);
+		} catch(IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
-	void setInput(String in) throws FileNotFoundException {
-		input = in;
-		output = "../wav/" + input.substring(7, input.length() - 7) + "wav.wav";
-		outFile = new FileOutputStream(output);
-		System.out.println("Input PCM file is " + input);
-		System.out.println("Output wav file is " + output);		
+	void setInput(String in) {
+		try {
+			input = in;
+			output = "../wav/" + input.substring(7, input.length() - 7) + "wav.wav";
+			outFile = new FileOutputStream(output);
+			System.out.println("Input PCM file is " + input);
+			System.out.println("Output wav file is " + output);
+		} catch(IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
-	void setOutput() throws FileNotFoundException {
-		Scanner in = new Scanner(System.in);
-		System.out.print("Enter the output file: ");
-		output = in.next();
-		outFile = new FileOutputStream(output);
+	void setOutput() {
+		try {
+			Scanner in = new Scanner(System.in);
+			System.out.print("Enter the output file: ");
+			output = in.next();
+			outFile = new FileOutputStream(output);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	void setOutput(String out) {
@@ -80,11 +96,15 @@ public class PCM2Wav {
 		bitsPerSample = bps;
 	}
 	
-	void modifyDataLength() throws FileNotFoundException {
-		Scanner readFileLength = new Scanner(new File(input));						//Create scanner to scan through file and count how many integers
-		while(readFileLength.hasNextInt()) {										//Loop until end of file to get how many integers are in the file
-			int temp = readFileLength.nextInt();
-			dataLength +=1;
+	void modifyDataLength() {
+		try {
+			Scanner readFileLength = new Scanner(new File(input));					//Create scanner to scan through file and count how many integers
+			while(readFileLength.hasNextInt()) {									//Loop until end of file to get how many integers are in the file
+				int temp = readFileLength.nextInt();
+				dataLength +=1;
+			}
+		} catch(IOException e) {
+			e.printStackTrace();
 		}
 	}
 	
@@ -118,7 +138,7 @@ public class PCM2Wav {
 		header = chunkID + chunkSize + format + subChunk1ID + subChunk1Size + audioFormat + numChannels + sampleRateStr + byteRate + blockAlign + bitsPerSampleStr + subChunk2ID + subChunk2Size;
 	}
 	
-	void writeHeader() throws FileNotFoundException {		//Method for creating a header for the wav file and writing it to the output file
+	void writeHeader() {														//Method for creating a header for the wav file and writing it to the output file
 		writeHexToWav(header, outFile);
 	}
 
@@ -128,7 +148,7 @@ public class PCM2Wav {
 			Scanner readFileContent = new Scanner(new File(input));				//Create scanner to scan through file later to actually process each integer
 			while(readFileContent.hasNextInt()) {								//Loops through integers to convert them to hex and write to output file
 				int x = readFileContent.nextInt();
-				if (x >= 0) {														//If integer is positive, simply convert to little endian hex and write to file
+				if (x >= 0) {													//If integer is positive, simply convert to little endian hex and write to file
 					writeHexToWav(toLittleEndian(Integer.toString(x), 2), outFile);
 				}
 				else {															//If integer is negative, the two's complement of the number in hex must be calculated first
@@ -141,37 +161,37 @@ public class PCM2Wav {
 			}
 			outFile.close();
 		} catch(IOException e) {
-			System.out.println("Error in printing for main");
+			e.printStackTrace();
 		}
 	}
 	
 	String toLittleEndian(String num, int numBytes) {							//takes a base 10 number inside a string and converts it to a hex string in little endian form
-		String hex = Integer.toHexString(Integer.parseInt(num));						//Creates a string with a hex value equal to the number received
+		String hex = Integer.toHexString(Integer.parseInt(num));				//Creates a string with a hex value equal to the number received
 		char[] hexArray = hex.toCharArray();									//Creates an array to hold each hex digit from the string
-		if (hexArray.length % 2 ==1) {										//If there are an odd number of digits, add a 0 to the front to make the length even
+		if (hexArray.length % 2 ==1) {											//If there are an odd number of digits, add a 0 to the front to make the length even
 			hex = "0" + hex;
 			hexArray = hex.toCharArray();
 		}
-		String end = "00";											//This will be added on the end of the little endian value to pad the number so it has the correct number of digits
-		String value = "";											//This string will hold the ending little endian string
-		for(int i = hexArray.length - 2; i>=0; i=i-2) {								//For each digit in the hex string, add it to the value string
+		String end = "00";														//This will be added on the end of the little endian value to pad the number so it has the correct number of digits
+		String value = "";														//This string will hold the ending little endian string
+		for(int i = hexArray.length - 2; i>=0; i=i-2) {							//For each digit in the hex string, add it to the value string
 			value+=hexArray[i];
 			value+=hexArray[i+1];
 		}
-		for(int i = 0; i < numBytes - hexArray.length/2 ; i++) {						//If the length of the end string is not the desired length, add zeros until it is
+		for(int i = 0; i < numBytes - hexArray.length/2 ; i++) {				//If the length of the end string is not the desired length, add zeros until it is
 			value+=end;
 		}
 		return value;
 	}
 	
-	void writeHexToWav(String hex, FileOutputStream outFile) {						//Takes a string of hex values, converts every two hex numbers into a character and writes the character to the output file
+	void writeHexToWav(String hex, FileOutputStream outFile) {					//Takes a string of hex values, converts every two hex numbers into a character and writes the character to the output file
 		try {
 	  		for( int i=0; i<hex.length()-1; i+=2 ){								//Loop index counts up by 2 through the hex string
 	      		String out = hex.substring(i,(i+2));							//Takes out a substring of length 2 from the main hex string
-				outFile.write((char) (Integer.parseInt(out,16)));					//Converts the substring into a character and writes to the outfile
+				outFile.write((char) (Integer.parseInt(out,16)));				//Converts the substring into a character and writes to the outfile
 	  		}
 		} catch(IOException e) {
-			System.out.println("Error in printing for write HexToWav");
+			e.printStackTrace();
 		}
 	}
 }
